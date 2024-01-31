@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { format } from "date-fns";
-import api from '../api/posts';
+// import api from '../api/posts';
 import useWindowSize from "../hooks/useWindow";
 import { useNavigate } from "react-router-dom";
 

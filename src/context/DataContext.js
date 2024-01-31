@@ -8,7 +8,42 @@ const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
 
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState([{
+        "id": "1",
+        "title": "P-1",
+        "datetime": "Jul 01, 2022 11:11AM",
+        "body": "react js tuto"
+      },
+      {
+        "id": "2",
+        "title": "P-2",
+        "datetime": "Jul 02, 2024 11:11AM",
+        "body": "react js 2 tuto"
+      },
+      {
+        "id": "3",
+        "title": "P-3",
+        "datetime": "Jul 03, 2022 11:11AM",
+        "body": "react js 3 tuto"
+      },
+      {
+        "id": "4",
+        "title": "",
+        "datetime": "January 31, 2024 7:50:42 AM",
+        "body": ""
+      },
+      {
+        "id": "5",
+        "title": "edit test",
+        "datetime": "January 31, 2024 8:08:44 AM",
+        "body": "edit the test"
+      },
+      {
+        "id": "51",
+        "title": "from context",
+        "datetime": "January 31, 2024 12:28:51 PM",
+        "body": "data local lap"
+      }]);
     const [search, setSearch] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [postBody, setPostBody] = useState('');
@@ -21,8 +56,8 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await api.get('/posts');
-                setPosts(response.data);
+                // const response = await api.get('/posts');
+                // setPosts(response.data);
             } catch (err) {
                 if (err.response) {
                     console.log(err.response.data);
@@ -47,8 +82,8 @@ export const DataProvider = ({ children }) => {
         const datetime = format(new Date(), 'MMMM dd, yyyy pp');
         const newPost = { id, title: postTitle, datetime, body: postBody };
         try {
-            const postRes = await api.post('/posts', newPost);
-            const allPosts = [...posts, postRes.data];
+            // const postRes = await api.post('/posts', newPost);
+            const allPosts = [...posts, newPost];
             setPosts(allPosts);
             setPostTitle('');
             setPostBody('');
@@ -64,7 +99,7 @@ export const DataProvider = ({ children }) => {
 
     const handleDelete = async (id) => {
         try {
-            await api.delete(`/posts/${id}`)
+            // await api.delete(`/posts/${id}`)
             const postList = posts.filter(post => post.id !== id);
             setPosts(postList);
             navigate('/');
@@ -77,8 +112,10 @@ export const DataProvider = ({ children }) => {
         try {
             const datetime = format(new Date(), 'MMMM dd, yyyy pp');
             const editPost = { id, title: editTitle, datetime, body: editBody };
-            const response = await api.put(`/posts/${id}`, editPost);
-            setPosts(posts.map(post => post.id === id ? { ...response.data } : post));
+            // const response = await api.put(`/posts/${id}`, editPost);
+            // setPosts(posts.map(post => post.id === id ? { ...response.data } : post));
+            const updPosts = [...posts, editPost];
+            setPosts(updPosts);
             setEditTitle('');
             setEditBody('');
             navigate('/');
